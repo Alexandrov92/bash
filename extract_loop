@@ -1,0 +1,17 @@
+#!/bin/bash
+#############
+# Извлечение вложенных друг в друга архивов 
+#с именем archive_name + n.tar.gz 
+#
+#############
+while true; do
+	for f_name in *.tar.gz; do
+    	case $f_name in 
+		    '*.tar.gz')
+			exit 0 
+			;; 
+		esac
+        tar zxfv "$f_name" 
+        rm -fR "$f_name" 
+    done
+done
