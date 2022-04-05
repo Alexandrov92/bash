@@ -2,7 +2,7 @@ import sys
 import time
 import os
 import shutil
-#import subprocess
+import subprocess
 #import re
 
 #from sh arguments
@@ -16,8 +16,9 @@ time_string = time.strftime("%d/%m/%Y, в %H:%M:%S", time.localtime())
 if float(load_average) >= float(limit):
     ind = "ALERT"
 else:
-    ind = "norm"
+    ind = "NORMAL"
 print("load average is: "+str(load_average)+" index: "+ind+" time: " + str(time_string))
+check_uptime = subprocess.run('uptime')
 #/code to check correct work
 
 #work with logging
@@ -25,10 +26,7 @@ limitsize = 5
 logscount = 5
 if (os.path.isfile("average_log") == True):   #if logfile exist
     log_size = os.stat("average_log").st_size / 1024  #get logfile size in kilobites
-    print("logsize: "+str(log_size))
-    print("limitsize: "+str(limitsize))
     if (log_size >= limitsize):
-       print("logsize >= limitsize")
        for currentFileNum in range(logscount, 1, -1):
            src = "average_log" + str(currentFileNum-1)
            dst = "average_log" + str(currentFileNum)
@@ -37,11 +35,4 @@ if (os.path.isfile("average_log") == True):   #if logfile exist
        shutil.copyfile("average_log", "average_log"+"1")
        log_file = open("average_log", 'w')
        log_file.close()
-
-
-
-
-
-
-
 #work with logging

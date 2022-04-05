@@ -1,6 +1,6 @@
 #!/bin/bash
 
-INITLIMIT=1.20 #set neded OS load average (l_a) limit, approximate 80%
+INITLIMIT=1.10 #set neded OS load average (l_a) limit
 echo "limit $INITLIMIT"
 CORES="$(cat /proc/cpuinfo | grep processor | wc -l)" #find core"s count
 echo "cores count: $CORES"  
@@ -14,5 +14,5 @@ if (( "$(echo "$AVERCONVERT >= $LIMIT" | bc -l)" )); then  #use basic calculator
  echo "ALERT at $(date) average is $AVERCONVERT" >> average_log; #add alert to log_file 
  python3 ck.py $AVERCONVERT $INITLIMIT # translate to python script
 fi
-sleep 1 # check every 10 seconds
+sleep 10 # check every 10 seconds
 done
