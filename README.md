@@ -1,2 +1,2 @@
 # bash
-Different bash-scripts
+Different bash and python scripts
